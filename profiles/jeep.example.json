@@ -1,6 +1,6 @@
 {
   "name": "jeep",
-  "extends": "nav2",
+  "extends": "vehicle",
   "required_roles": [
     "map",
     "odom",
@@ -64,71 +64,8 @@
       "required": true
     }
   ],
-  "frame_checks": [
-    {
-      "name": "map_frame",
-      "role": "map",
-      "field": "header.frame_id",
-      "equals": "map",
-      "required": true
-    },
-    {
-      "name": "odom_frame",
-      "role": "odom",
-      "field": "header.frame_id",
-      "equals": "odom",
-      "required": true
-    },
-    {
-      "name": "base_frame",
-      "role": "odom",
-      "field": "child_frame_id",
-      "equals_any": [
-        "base_link",
-        "base_footprint"
-      ],
-      "required": true
-    },
-    {
-      "name": "sensor_frame",
-      "roles": [
-        "scan",
-        "pointcloud"
-      ],
-      "field": "header.frame_id",
-      "nonempty": true,
-      "required": false
-    }
-  ],
-  "required_transforms": [
-    {
-      "name": "tf_map_to_odom",
-      "target": "map",
-      "source": "odom",
-      "required": true
-    },
-    {
-      "name": "tf_odom_to_base",
-      "pairs": [
-        {
-          "target": "odom",
-          "source": "base_link"
-        },
-        {
-          "target": "odom",
-          "source": "base_footprint"
-        }
-      ],
-      "required": true
-    }
-  ],
-  "required_actions": [
-    {
-      "name": "/navigate_to_pose",
-      "types": [
-        "nav2_msgs/action/NavigateToPose"
-      ],
-      "required": true
-    }
+  "notes": [
+    "Use ./nav2++ profile scaffold jeep on the Linux vehicle computer to generate a first draft from the live graph.",
+    "Keep built-in nav2 validation separate if you also want to require navigate_to_pose."
   ]
 }

@@ -88,6 +88,20 @@ What to do:
 - confirm `nvidia-smi` works in a normal shell
 - if your deployed stack does not actually require GPU access, remove that host check from the robot profile
 
+## `profile scaffold` generates a weak or incomplete profile
+
+Meaning:
+
+- the live graph did not expose enough exact robot topics yet
+- or the DBW topic names were too custom to infer safely
+
+What to do:
+
+- rerun it on the real Linux vehicle computer while the full stack is publishing
+- inspect `profiles/jeep.json`
+- compare it against `profiles/jeep.example.json`
+- fix the final ambiguous fields manually once, then keep that file in the repo
+
 ## What To Send With A Bug Report
 
 Send:

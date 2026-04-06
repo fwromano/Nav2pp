@@ -74,8 +74,10 @@ Run:
 
 ```bash
 ./nav2++ setup --yes
+./nav2++ profile scaffold jeep
 ./nav2++ validate --profile vehicle
 ./nav2++ validate --profile nav2
+./nav2++ validate --profile jeep
 ```
 
 After validation passes, choose one:
@@ -96,21 +98,21 @@ This is the machine that matters for real verification.
 
 If the robot has exact non-generic topic names, do not stop at the built-in profile.
 
-Create a robot-specific validation profile and run that too:
+Create a robot-specific validation profile from the live graph first:
 
 ```bash
-./nav2++ validate --profile-file profiles/jeep.json
+./nav2++ profile scaffold jeep
 ```
 
-If you save it as `profiles/jeep.json`, this also works:
+Then validate with it:
 
 ```bash
 ./nav2++ validate --profile jeep
 ```
 
-Use `profiles/jeep.example.json` as the starting template.
+Use `profiles/jeep.example.json` only as a fallback starting template when you cannot scaffold from a live graph.
 
-That example profile already includes an NVIDIA host check via `nvidia-smi`.
+The scaffolded profile and the example profile both include an NVIDIA host check via `nvidia-smi`.
 
 ### Linux workstation or Linux dev box
 

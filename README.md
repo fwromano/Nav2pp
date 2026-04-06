@@ -102,6 +102,13 @@ If you need exact robot-specific checks, create `profiles/<name>.json` or point 
 An example custom profile lives at `profiles/jeep.example.json`.
 That example assumes the real deployed target is Linux with an NVIDIA GPU and checks `nvidia-smi` when run live on the machine.
 
+To generate a first draft from the current ROS graph on the target Linux machine:
+
+```bash
+./nav2++ profile scaffold jeep
+./nav2++ validate --profile jeep
+```
+
 ## What setup creates
 
 `./nav2++ setup` creates:
@@ -145,6 +152,7 @@ source .nav2pp/env/nav2pp.env
 - Topic discovery uses common heuristics and should be treated as a starting point, not final truth.
 - `nav2++ validate` is currently focused on core bring-up readiness: topic presence, message types, basic frame IDs, required TF edges, and the `navigate_to_pose` action for the `nav2` profile.
 - `nav2++ validate` can also load an exact JSON profile for a specific robot stack, including host checks such as `nvidia-smi`, but you still need to define the real topic names, frame expectations, and command path for that robot.
+- `nav2++ profile scaffold <name>` can generate a first draft from the live graph, but you should still review the resulting profile before treating it as final.
 - macOS support is intentionally VM-first because that is the practical path for Nav2.
 - Headless macOS startup will run the sim and Nav2 stack, but it still does not provide a local GUI unless you add guest display forwarding such as XQuartz/X11.
 - The Docker mode is currently aimed at the packaged demo path on macOS. Live host-graph overlay is still Lima-first because DDS across host/container boundaries is a separate problem.

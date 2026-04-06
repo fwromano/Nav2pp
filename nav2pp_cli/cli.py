@@ -9,6 +9,7 @@ from . import __version__
 from .bootstrap import run_setup
 from .diagnostics import collect_host_info
 from .planner import build_setup_plan
+from .profile_scaffold import scaffold_profile
 from .starter import run_start
 from .topics import discover_topics, render_topic_report
 from .validator import render_validation_report, validate_profile
@@ -52,6 +53,18 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("--from-file", type=Path, help="Read a topic snapshot from a file instead of querying ros2.")
     validate.add_argument("--topic", action="append", dest="topics", help="Provide topic entries directly, optionally as /name:type.")
     validate.set_defaults(func=cmd_validate)
+
+    profile = subparsers.add_parser("profile", help="Create or manage robot-specific validation profiles.")
+    profile_subparsers = profile.add_subparsers(dest="profile_command", required=True)
+
+    scaffold = profile_subparsers.add_parser("scaffold", help="Generate a draft robot validation profile from a live graph or topic snapshot.")
+    scaffold.add_argument("name", help="Profile name, for example jeep.")
+    scaffold.add_argument("--from-file", type=Path, help="Read typed topic entries from a file instead of querying ros2.")
+    scaffold.add_argument("--topic", action="append", dest="topics", help="Provide typed topic entries directly, optionally as /name:type.")
+    scaffold.add_argument("--output", type=Path, help="Write the generated profile to a specific path.")
+    scaffold.add_argument("--skip-nvidia", action="store_true", help="Do not require nvidia-smi in the generated profile.")
+    scaffold.add_argument("--force", action="store_true", help="Overwrite the destination file if it already exists.")
+    scaffold.set_defaults(func=cmd_profile_scaffold)
 
     start = subparsers.add_parser("start", help="Start a Nav2 demo or a live RViz overlay from the detected graph.")
     start.add_argument("--mode", default="auto", choices=["auto", "sim", "live"])
@@ -134,6 +147,30 @@ def cmd_validate(args: argparse.Namespace) -> int:
         return 1
     print(render_validation_report(report, as_json=args.json))
     return 0 if report.passed else 1
+
+
+def cmd_profile_scaffold(args: argparse.Namespace) -> int:
+    try:
+        output_path, notes = scaffold_profile(
+            args.name,
+            repo_root=Path.cwd(),
+            topics=args.topics,
+            topic_file=args.from_file,
+            output_path=args.output,
+            require_nvidia=not args.skip_nvidia,
+            force=args.force,
+        )
+    except (RuntimeError, ValueError, json.JSONDecodeError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+    print(f"Wrote profile scaffold to {output_path}")
+    print(f"Validate it with: ./nav2++ validate --profile-file {output_path}")
+    if notes:
+        print("Review:")
+        for note in notes:
+            print(f"  - {note}")
+    return 0
 
 
 def cmd_start(args: argparse.Namespace) -> int:

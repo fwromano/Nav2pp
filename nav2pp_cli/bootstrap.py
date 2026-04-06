@@ -349,7 +349,7 @@ def _render_macos_lima_script(repo_root: Path, host: HostInfo, plan: SetupPlan) 
 
         echo "Lima bootstrap complete."
         echo "Use limactl shell nav2pp to enter the guest."
-        echo "If the mounted repo was not writable in the guest, nav2++ used \$HOME/nav2pp instead."
+        echo "If the mounted repo was not writable in the guest, nav2++ used \\$HOME/nav2pp instead."
         """
     )
 

@@ -92,6 +92,16 @@ Or verify a saved topic snapshot without needing a live `ros2` environment on th
 ./nav2++ validate --profile nav2 --from-file topics.txt
 ```
 
+If you need exact robot-specific checks, create `profiles/<name>.json` or point to a file directly:
+
+```bash
+./nav2++ validate --profile jeep
+./nav2++ validate --profile-file profiles/jeep.json
+```
+
+An example custom profile lives at `profiles/jeep.example.json`.
+That example assumes the real deployed target is Linux with an NVIDIA GPU and checks `nvidia-smi` when run live on the machine.
+
 ## What setup creates
 
 `./nav2++ setup` creates:
@@ -115,6 +125,7 @@ source .nav2pp/env/nav2pp.env
 `nav2++` chooses a setup strategy from the detected machine:
 
 - Linux `ubuntu` or `debian`: native ROS install via `apt`
+- Real deployment target: Linux on the vehicle computer, with optional robot-specific validation profiles such as `profiles/jeep.json`
 - macOS: Lima-managed Ubuntu guest by default
 - macOS `--mode docker`: Colima-backed Docker runtime with a browser-served Linux desktop
 - macOS `--mode native`: diagnostic-only today, because native Nav2 automation is still experimental
@@ -133,6 +144,7 @@ source .nav2pp/env/nav2pp.env
 - The default `start` path is the official Nav2 demo path. The live-overlay path is intentionally lighter weight and currently focuses on RViz plus stubbed core topics rather than a full robot-specific bringup.
 - Topic discovery uses common heuristics and should be treated as a starting point, not final truth.
 - `nav2++ validate` is currently focused on core bring-up readiness: topic presence, message types, basic frame IDs, required TF edges, and the `navigate_to_pose` action for the `nav2` profile.
+- `nav2++ validate` can also load an exact JSON profile for a specific robot stack, including host checks such as `nvidia-smi`, but you still need to define the real topic names, frame expectations, and command path for that robot.
 - macOS support is intentionally VM-first because that is the practical path for Nav2.
 - Headless macOS startup will run the sim and Nav2 stack, but it still does not provide a local GUI unless you add guest display forwarding such as XQuartz/X11.
 - The Docker mode is currently aimed at the packaged demo path on macOS. Live host-graph overlay is still Lima-first because DDS across host/container boundaries is a separate problem.

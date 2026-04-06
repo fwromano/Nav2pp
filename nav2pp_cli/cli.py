@@ -38,7 +38,16 @@ def build_parser() -> argparse.ArgumentParser:
     topics.set_defaults(func=cmd_topics)
 
     validate = subparsers.add_parser("validate", help="Verify whether the current ROS graph is usable for Nav2 or a vehicle bring-up.")
-    validate.add_argument("--profile", default="vehicle", choices=["vehicle", "nav2"])
+    validate.add_argument(
+        "--profile",
+        default="vehicle",
+        help="Built-in profile name or local profile name under profiles/<name>.json. Defaults to vehicle.",
+    )
+    validate.add_argument(
+        "--profile-file",
+        type=Path,
+        help="Load an exact validation profile from a JSON file.",
+    )
     validate.add_argument("--json", action="store_true", help="Emit the validation report as JSON.")
     validate.add_argument("--from-file", type=Path, help="Read a topic snapshot from a file instead of querying ros2.")
     validate.add_argument("--topic", action="append", dest="topics", help="Provide topic entries directly, optionally as /name:type.")
@@ -113,7 +122,13 @@ def cmd_topics(args: argparse.Namespace) -> int:
 
 def cmd_validate(args: argparse.Namespace) -> int:
     try:
-        report = validate_profile(args.profile, topics=args.topics, topic_file=args.from_file)
+        report = validate_profile(
+            args.profile,
+            topics=args.topics,
+            topic_file=args.from_file,
+            profile_file=args.profile_file,
+            repo_root=Path.cwd(),
+        )
     except (RuntimeError, ValueError, json.JSONDecodeError) as exc:
         print(str(exc), file=sys.stderr)
         return 1

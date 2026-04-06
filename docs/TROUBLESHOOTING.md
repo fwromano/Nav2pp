@@ -74,6 +74,20 @@ Fix the failing items in this order:
 7. TF edge checks
 8. action checks
 
+## `nvidia_gpu` fails in a robot-specific profile
+
+Meaning:
+
+- the deployed machine does not expose `nvidia-smi`
+- the NVIDIA driver/runtime is not installed correctly
+- or you are validating on the wrong machine
+
+What to do:
+
+- run the validation on the actual Linux vehicle computer
+- confirm `nvidia-smi` works in a normal shell
+- if your deployed stack does not actually require GPU access, remove that host check from the robot profile
+
 ## What To Send With A Bug Report
 
 Send:

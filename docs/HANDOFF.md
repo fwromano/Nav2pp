@@ -56,7 +56,7 @@ Start here.
 
 Pick the section that matches the machine you are standing at.
 
-### Linux vehicle computer or Linux robot computer
+### Linux vehicle computer or Linux robot computer with NVIDIA GPU
 
 This is the most important case.
 
@@ -67,6 +67,7 @@ Use this path for:
 - real robot bring-up
 - vehicle bring-up
 - DBW integration
+- deployed Linux + NVIDIA target validation
 - validating whether the ROS graph is actually usable
 
 Run:
@@ -92,6 +93,24 @@ After validation passes, choose one:
 ```
 
 This is the machine that matters for real verification.
+
+If the robot has exact non-generic topic names, do not stop at the built-in profile.
+
+Create a robot-specific validation profile and run that too:
+
+```bash
+./nav2++ validate --profile-file profiles/jeep.json
+```
+
+If you save it as `profiles/jeep.json`, this also works:
+
+```bash
+./nav2++ validate --profile jeep
+```
+
+Use `profiles/jeep.example.json` as the starting template.
+
+That example profile already includes an NVIDIA host check via `nvidia-smi`.
 
 ### Linux workstation or Linux dev box
 
@@ -146,7 +165,7 @@ Use this path for:
 - learning the Nav2 UI
 - quick packaged simulation
 
-Do not use this path as your mental model for a production vehicle computer.
+Do not use this path as your mental model for a production Linux + NVIDIA vehicle computer.
 
 ### macOS laptop or desktop while the real robot runs somewhere else
 

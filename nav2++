@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="${ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+
+if command -v python3 >/dev/null 2>&1; then
+  exec python3 -m nav2pp_cli.cli "$@"
+fi
+
+echo "python3 is required to run nav2++" >&2
+exit 1

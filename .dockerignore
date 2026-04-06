@@ -1,0 +1,7 @@
+.git
+.nav2pp
+__pycache__
+*.pyc
+workspace/build
+workspace/install
+workspace/log

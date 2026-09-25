@@ -1,0 +1,33 @@
+{
+  "trials": 500,
+  "metrics": {
+    "peak_angle_deg": {
+      "baseline_median": 25.362738499331076,
+      "chauffeur_median": 10.975153346464907,
+      "median_reduction_pct": 56.03704373209635,
+      "monte_carlo_95_interval_reduction_pct": [52.69476231526978, 63.04759357049167],
+      "fraction_improved": 1.0
+    },
+    "rms_angle_deg": {
+      "baseline_median": 17.091331975466108,
+      "chauffeur_median": 7.325388375385754,
+      "median_reduction_pct": 57.02062769821205,
+      "monte_carlo_95_interval_reduction_pct": [55.80451086833836, 58.42282889547744],
+      "fraction_improved": 1.0
+    },
+    "peak_angular_velocity_deg_s": {
+      "baseline_median": 112.37746597083712,
+      "chauffeur_median": 18.134891729151327,
+      "median_reduction_pct": 83.99211722712874,
+      "monte_carlo_95_interval_reduction_pct": [75.78123808764855, 88.87914749638914],
+      "fraction_improved": 1.0
+    },
+    "peak_angular_accel_deg_s2": {
+      "baseline_median": 814.6645346594205,
+      "chauffeur_median": 164.807911159664,
+      "median_reduction_pct": 79.95281247623325,
+      "monte_carlo_95_interval_reduction_pct": [60.458299513847805, 89.58623128726232],
+      "fraction_improved": 1.0
+    }
+  }
+}

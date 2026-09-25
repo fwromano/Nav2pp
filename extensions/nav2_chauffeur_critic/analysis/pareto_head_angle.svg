@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460">
+<style>
+text{font:14px system-ui,sans-serif;fill:#222}.title{font-size:20px;font-weight:600}.grid{stroke:#ddd;stroke-width:1}.axis{stroke:#222;stroke-width:1.5}.curve{fill:none;stroke:#3568a8;stroke-width:3}circle{fill:#3568a8}
+</style>
+<rect width="100%" height="100%" fill="white"/>
+<text x="380" y="28" text-anchor="middle" class="title">Comfort / traversal-time tradeoff</text>
+<line x1="80" y1="395" x2="735" y2="395" class="grid"/><text x="68" y="399" text-anchor="end">0</text><line x1="80" y1="341.969696969697" x2="735" y2="341.969696969697" class="grid"/><text x="68" y="345.969696969697" text-anchor="end">5</text><line x1="80" y1="288.93939393939394" x2="735" y2="288.93939393939394" class="grid"/><text x="68" y="292.93939393939394" text-anchor="end">10</text><line x1="80" y1="235.9090909090909" x2="735" y2="235.9090909090909" class="grid"/><text x="68" y="239.9090909090909" text-anchor="end">15</text><line x1="80" y1="182.87878787878788" x2="735" y2="182.87878787878788" class="grid"/><text x="68" y="186.87878787878788" text-anchor="end">20</text><line x1="80" y1="129.84848484848487" x2="735" y2="129.84848484848487" class="grid"/><text x="68" y="133.84848484848487" text-anchor="end">25</text><line x1="80" y1="76.81818181818181" x2="735" y2="76.81818181818181" class="grid"/><text x="68" y="80.81818181818181" text-anchor="end">30</text><line x1="157.97619047619048" y1="45" x2="157.97619047619048" y2="395" class="grid"/><text x="157.97619047619048" y="419" text-anchor="middle">5</text><line x1="313.92857142857144" y1="45" x2="313.92857142857144" y2="395" class="grid"/><text x="313.92857142857144" y="419" text-anchor="middle">6</text><line x1="469.88095238095246" y1="45" x2="469.88095238095246" y2="395" class="grid"/><text x="469.88095238095246" y="419" text-anchor="middle">7</text><line x1="625.8333333333335" y1="45" x2="625.8333333333335" y2="395" class="grid"/><text x="625.8333333333335" y="419" text-anchor="middle">8</text>
+<line x1="80" y1="395" x2="735" y2="395" class="axis"/>
+<line x1="80" y1="45" x2="80" y2="395" class="axis"/>
+<polyline points="114.0,72.0 114.0,72.0 137.4,87.0 137.4,87.0 215.4,134.8 497.5,282.5 585.0,308.9 701.6,331.7" class="curve"/>
+<circle cx="114.0" cy="72.0" r="5"/><text x="121.0" y="65.0">λ=0</text>
+<circle cx="114.0" cy="72.0" r="5"/><text x="121.0" y="65.0">λ=0.05</text>
+<circle cx="137.4" cy="87.0" r="5"/><text x="144.4" y="80.0">λ=0.1</text>
+<circle cx="137.4" cy="87.0" r="5"/><text x="144.4" y="80.0">λ=0.2</text>
+<circle cx="215.4" cy="134.8" r="5"/><text x="222.4" y="127.8">λ=0.5</text>
+<circle cx="497.5" cy="282.5" r="5"/><text x="504.5" y="275.5">λ=1</text>
+<circle cx="585.0" cy="308.9" r="5"/><text x="592.0" y="301.9">λ=2</text>
+<circle cx="701.6" cy="331.7" r="5"/><text x="708.6" y="324.7">λ=5</text>
+<text x="407.5" y="442" text-anchor="middle">Traversal time (s)</text>
+<text transform="translate(20 220) rotate(-90)" text-anchor="middle">Peak head-angle proxy (deg)</text>
+</svg>

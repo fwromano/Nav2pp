@@ -1,0 +1,25 @@
+name: Chauffeur critic toy demos
+
+on:
+  push:
+    paths:
+      - 'extensions/nav2_chauffeur_critic/**'
+      - '.github/workflows/chauffeur-critic-toy.yml'
+  pull_request:
+    paths:
+      - 'extensions/nav2_chauffeur_critic/**'
+      - '.github/workflows/chauffeur-critic-toy.yml'
+
+jobs:
+  toy-demos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run no-ROS comfort demonstrations
+        run: python3 extensions/nav2_chauffeur_critic/demos/run_all.py
+      - name: Run head-neck model unit tests
+        run: python3 -m unittest discover extensions/nav2_chauffeur_critic/test -p 'test_neck_model.py'
+      - name: Compare baseline versus ChauffeurCritic selection
+        run: python3 extensions/nav2_chauffeur_critic/demos/controller_comparison.py --check
+      - name: Run measured-like Monte Carlo robustness check
+        run: python3 extensions/nav2_chauffeur_critic/demos/monte_carlo_surrogate.py --trials 500 --check

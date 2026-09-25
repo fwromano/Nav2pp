@@ -17,3 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run no-ROS comfort demonstrations
         run: python3 extensions/nav2_chauffeur_critic/demos/run_all.py
+      - name: Run head-neck model unit tests
+        run: python3 -m unittest discover extensions/nav2_chauffeur_critic/test -p 'test_neck_model.py'
+      - name: Compare baseline versus ChauffeurCritic selection
+        run: python3 extensions/nav2_chauffeur_critic/demos/controller_comparison.py --check

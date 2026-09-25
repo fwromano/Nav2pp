@@ -37,8 +37,12 @@ install(TARGETS chauffeur_critic
 install(DIRECTORY include/
   DESTINATION include/${PROJECT_NAME}
 )
-install(DIRECTORY config demos
+install(DIRECTORY config demos docs analysis
   DESTINATION share/${PROJECT_NAME}
+)
+install(PROGRAMS
+  scripts/record_comfort_trial.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

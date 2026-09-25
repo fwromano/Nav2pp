@@ -94,15 +94,32 @@ These use the same equations as the plugin and require only Python 3:
 ```bash
 cd extensions/nav2_chauffeur_critic/demos
 python3 run_all.py
+python3 controller_comparison.py --check
 ```
 
-The demos verify three expected preferences:
+The demos verify:
 
 - a ramped steering maneuver scores lower than a step input;
 - a smooth S-curve scores lower than an abrupt left/right transition;
-- on the same geometric bend, a slower trajectory scores lower than an unnecessarily fast one.
+- on the same geometric bend, a slower trajectory scores lower than an unnecessarily fast one;
+- a baseline time-only selector versus a comfort-weighted selector produces measurably different head/neck dynamic response in an independent second-order proxy.
 
-Each demo fails with a non-zero exit code if the ranking reverses.
+Each demo/check fails with a non-zero exit code if the expected ranking reverses.
+
+## Passenger-dynamics analysis
+
+See [`analysis/ANALYSIS.md`](analysis/ANALYSIS.md) for the with/without experiment, head/neck spring-damper model, weight sweep, quantitative results, limitations, and a proposed Jeep validation protocol.
+
+At the illustrative `lambda=1` operating point in the current toy sweep, the selected trajectory reduces the external head-model proxy by approximately:
+
+- **65% peak head angle**;
+- **58% RMS head angle**;
+- **93% peak head angular velocity**;
+- **96% peak head angular acceleration**;
+
+at the cost of approximately **52% more traversal time** than the time-only baseline.
+
+Those numbers are properties of the toy experiment, not human injury or discomfort thresholds.
 
 ## Relationship to existing Nav2 behavior
 

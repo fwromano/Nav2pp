@@ -21,3 +21,5 @@ jobs:
         run: python3 -m unittest discover extensions/nav2_chauffeur_critic/test -p 'test_neck_model.py'
       - name: Compare baseline versus ChauffeurCritic selection
         run: python3 extensions/nav2_chauffeur_critic/demos/controller_comparison.py --check
+      - name: Run measured-like Monte Carlo robustness check
+        run: python3 extensions/nav2_chauffeur_critic/demos/monte_carlo_surrogate.py --trials 500 --check
